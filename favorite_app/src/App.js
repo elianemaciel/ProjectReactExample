@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
-import Home from './Home';
+import ListFavorite from './components/ListFavorite';
+
 
 function App() {
   return (
-      <Home />
+      <ListFavorite />
   );
 }
 

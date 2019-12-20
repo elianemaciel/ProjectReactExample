@@ -1,10 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-
 import { List, Avatar, Icon } from 'antd';
 
+
 const listData = [];
+
 for (let i = 0; i < 23; i++) {
   listData.push({
     href: 'http://ant.design',
@@ -24,7 +23,7 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-class Home extends React.Component {
+class ListFavorite extends React.Component {
   render() {
     return (
     <List
@@ -71,5 +70,5 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default ListFavorite;
 
