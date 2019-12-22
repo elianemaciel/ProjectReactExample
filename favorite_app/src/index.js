@@ -4,7 +4,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './styles/index.less';
 import { Layout, Menu, Breadcrumb } from 'antd';
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from "apollo-boost";
+
 const { Header, Content, Footer } = Layout;
+const client = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql/',
+});
 
 ReactDOM.render(
 
@@ -15,6 +21,7 @@ ReactDOM.render(
             mode="horizontal"
             defaultSelectedKeys={['2']}
             style={{ lineHeight: '64px' }}
+            className="menu-top-bar"
         >
             <Menu.Item key="1">nav 1</Menu.Item>
             <Menu.Item key="2">nav 2</Menu.Item>
@@ -27,7 +34,9 @@ ReactDOM.render(
                 <Breadcrumb.Item>List</Breadcrumb.Item>
                 <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
-            <App />
+            <ApolloProvider client={client}>
+                <App />
+            </ApolloProvider>,
         </Content>
         <Footer style={{ textAlign: 'center' }}></Footer>
     </Layout>, document.getElementById('root'));
