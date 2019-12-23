@@ -26,12 +26,14 @@ Sqlite and ORM Sequelize
 
 - npx sequelize-cli db:migrate
 
-# Tecnologies
+## Project Description
 
-- Less
-- React
-- Antd
+- Request API rickandmortyapi
+    - List All Character
+    - List All Episode
+- Database
+- Layout - Ant Desing
 - Redux
-- Apollo
-- Sequelize
-- Sqlite3
+- React
+- Sequelize (ORM)
+- Sqlite3 (database)

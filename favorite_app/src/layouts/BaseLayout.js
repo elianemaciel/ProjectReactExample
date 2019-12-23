@@ -24,9 +24,6 @@ class BaseLayout extends React.Component {
                     style={{ lineHeight: '64px' }}
                     className="menu-top-bar"
                 >
-                    <Menu.Item key="1">
-                        <Link to="/">Home</Link>
-                    </Menu.Item>
                     <Menu.Item key="2">
                         <Link to="/character">Character</Link>
                     </Menu.Item>
