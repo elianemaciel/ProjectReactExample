@@ -1,45 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import BaseLayout from './layouts/BaseLayout';
+import Login from './components/Login';
 import * as serviceWorker from './serviceWorker';
-import './styles/index.less';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient from "apollo-boost";
+import { Provider } from 'react-redux';
+import { Switch } from "react-router";
+import { Route } from "react-router-dom";
+import { ConnectedRouter } from 'connected-react-router';
+import { Store, history } from './store';
+import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./components/Dashboard";
 
-const { Header, Content, Footer } = Layout;
-const client = new ApolloClient({
-  uri: 'https://rickandmortyapi.com/graphql/',
-});
 
 ReactDOM.render(
-
-    <Layout className="layout">
-        <Header>
-        <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={['2']}
-            style={{ lineHeight: '64px' }}
-            className="menu-top-bar"
-        >
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-        </Menu>
-        </Header>
-        <Content style={{ padding: '0 50px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>List</Breadcrumb.Item>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
-            <ApolloProvider client={client}>
-                <App />
-            </ApolloProvider>,
-        </Content>
-        <Footer style={{ textAlign: 'center' }}></Footer>
-    </Layout>, document.getElementById('root'));
+    <Provider store={Store}>
+        <ConnectedRouter history={history}>
+        <div style={{height: '100%'}}>
+            <BaseLayout />
+            <Switch>
+                {/* <Route path="/login" component={Login}/> */}
+                <PrivateRoute path="/" component={App}/>
+                <PrivateRoute path="/dashboard" component={Dashboard}/>
+            </Switch>
+        </div>
+        </ConnectedRouter>
+    </Provider>,
+     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
