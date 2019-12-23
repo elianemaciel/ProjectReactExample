@@ -11,17 +11,25 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Store, history } from './store';
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./components/Dashboard";
+import Episode from "./components/Episode";
+import ListFavorite from './components/ListFavorite';
 
 
 ReactDOM.render(
     <Provider store={Store}>
         <ConnectedRouter history={history}>
         <div style={{height: '100%'}}>
+            
             <BaseLayout />
+        
             <Switch>
                 {/* <Route path="/login" component={Login}/> */}
-                <PrivateRoute path="/" component={App}/>
+                <Route path="/character" component={ListFavorite}/>
+                <Route path="/episode" component={Episode}/>
                 <PrivateRoute path="/dashboard" component={Dashboard}/>
+                {/* <Route exact path="/">
+                    <Home />
+                </Route> */}
             </Switch>
         </div>
         </ConnectedRouter>

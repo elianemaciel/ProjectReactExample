@@ -1,19 +1,14 @@
 import React from 'react';
-import App from '../App';
 import Login from '../components/Login';
 import { Layout, Menu, Icon } from 'antd';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient from "apollo-boost";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from "react-router-dom";
+import {
+    Link
+  } from "react-router-dom";
 
-
-const { Header, Content, Footer } = Layout;
-const client = new ApolloClient({
-    uri: 'https://rickandmortyapi.com/graphql/',
-});
-
+const { Header } = Layout;
 
 class BaseLayout extends React.Component {
 
@@ -29,9 +24,15 @@ class BaseLayout extends React.Component {
                     style={{ lineHeight: '64px' }}
                     className="menu-top-bar"
                 >
-                    <Menu.Item key="1">Home</Menu.Item>
-                    <Menu.Item key="2">nav 2</Menu.Item>
-                    <Menu.Item key="3">nav 3</Menu.Item>
+                    <Menu.Item key="1">
+                        <Link to="/">Home</Link>
+                    </Menu.Item>
+                    <Menu.Item key="2">
+                        <Link to="/character">Character</Link>
+                    </Menu.Item>
+                    <Menu.Item key="3">
+                        <Link to="/episode">Episode</Link>
+                    </Menu.Item>
                     <Menu.Item className="login" key="4">
                     { login.loggedIn ?
                         <div>
@@ -44,13 +45,7 @@ class BaseLayout extends React.Component {
                     </Menu.Item>
                 </Menu>
                 </Header>
-                <Content style={{ padding: '0 50px' }}>
-                    <ApolloProvider client={client}>
-                        <App />
-                    </ApolloProvider>,
-                </Content>
-                <Footer style={{ textAlign: 'center' }}></Footer>
-            </Layout>
+        </Layout>
         )
     }
 }
