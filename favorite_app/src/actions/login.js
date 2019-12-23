@@ -1,14 +1,23 @@
 import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS } from '../types/login'
 import { push } from 'connected-react-router';
+import Authentication from './Autentication';
 
 
 export const loginAction = credentials => (dispatch) => {
 
     dispatch(request(credentials));
 
-    dispatch(success(credentials));
-    dispatch(push('/dashboard'));
-    // dispatch(failure({...credentials, ...response}));
+    let auth = new Authentication(credentials);
+
+    let result = auth.authenticate();
+
+    if (result.status === false) {
+        dispatch(failure({...result}));
+    }
+    else {
+        dispatch(success(result));
+        dispatch(push('/dashboard'));
+    }
 };
 
 const request = (credentials) => {

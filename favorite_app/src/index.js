@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import BaseLayout from './layouts/BaseLayout';
-import Login from './components/Login';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { Switch } from "react-router";
@@ -23,7 +21,6 @@ ReactDOM.render(
             <BaseLayout />
         
             <Switch>
-                {/* <Route path="/login" component={Login}/> */}
                 <Route path="/character" component={ListFavorite}/>
                 <Route path="/episode" component={Episode}/>
                 <PrivateRoute path="/dashboard" component={Dashboard}/>

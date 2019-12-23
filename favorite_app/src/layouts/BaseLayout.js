@@ -33,7 +33,7 @@ class BaseLayout extends React.Component {
                     <Menu.Item key="3">
                         <Link to="/episode">Episode</Link>
                     </Menu.Item>
-                    <Menu.Item className="login" key="4">
+                    <Menu.Item className="login" key="4" style={{float: 'right'}}>
                     { login.loggedIn ?
                         <div>
                         <Icon type="user" />

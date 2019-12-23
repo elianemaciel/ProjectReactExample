@@ -4,8 +4,6 @@ import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from "apollo-boost";
-import { Input, Form, Icon } from 'antd';
-import { useQuery } from 'react-apollo';
 
 
 const { Content } = Layout;
@@ -34,32 +32,9 @@ class Episode extends React.Component {
 
     render() {
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            this.getEpisodesApi();
-        };
-        const name = "The Ricklantis Mixup";
-        const episode = "S03E07";
     return (
         <Content style={{ padding: '0 50px' }}>
-        
-        <Form layout="inline" onSubmit={handleSubmit}>
-            <Form.Item>
-                <Input
-                    prefix={<Icon type="search" />}
-                    placeholder="Search episode"
-                    onChange={handleSubmit}
-                />
-                
-            </Form.Item>
-            <Form.Item>
-                <Input
-                    prefix={<Icon type="search" />}
-                    placeholder="Search episode name"
-                    onChange={handleSubmit}
-                />
-            </Form.Item>
-        </Form>
+
         <ApolloProvider client={client}>
             <Query query={GET_EPISODE} >
             {({ loading, error, data }) => {

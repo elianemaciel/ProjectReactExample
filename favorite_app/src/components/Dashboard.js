@@ -1,8 +1,16 @@
 import React from 'react';
-import { List, Avatar, Icon } from 'antd';
+import { List, Layout, Button } from 'antd';
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from "apollo-boost";
+import { bindActionCreators } from 'redux';
+import { withRouter } from "react-router-dom";
+import { favoriteAction } from '../actions/favorite';
+import { connect } from 'react-redux';
 
+
+const { Content } = Layout;
 
 const GET_CHARACTERS = gql`
   query getCharacters {
@@ -16,16 +24,21 @@ const GET_CHARACTERS = gql`
   }
 `;
 
-const IconText = ({ type, text }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {text}
-  </span>
-);
+const client = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql/',
+});
 
-class ListFavorite extends React.Component {
+
+class DashBoard extends React.Component {
     render() {
+      const { favoriteAction, favorite } = this.props;
+      const handleFavorite = (e) => {
+        e.preventDefault();
+        favoriteAction(e.target.value);
+    };
     return (
+      <Content style={{ padding: '0 50px' }}>
+      <ApolloProvider client={client}>
       <Query query={GET_CHARACTERS}>
       {({ loading, error, data }) => {
         if (loading) return "Loading...";
@@ -46,30 +59,38 @@ class ListFavorite extends React.Component {
             renderItem={item => (
               <List.Item
                   key={item.name}
-                  actions={[
-                  <IconText type="star-o" text="156" key="list-vertical-star-o" />,
-                  <IconText type="like-o" text="156" key="list-vertical-like-o" />,
-                  <IconText type="message" text="2" key="list-vertical-message" />,
-                  ]}
                   extra={
                     <img src={item.image} alt={item.name} />
                   }
               >
-              <List.Item.Meta
-                avatar={<Avatar src={item.name} />}
-                title={<a href={item.href}>{item.name}</a>}
-                description={item.name}
-              />
-              {item.content}
+                {item.name}
+                { favorite.favorite.indexOf(item.name) > -1 ?
+                <div></div>
+                :
+                <Button type="primary" size="small" icon="star" value={item.name} onClick={handleFavorite} />
+                }
             </List.Item>
             )}
         />
         )
       }}
     </Query>
+    </ApolloProvider>
+    </Content>
     );
   }
 }
+const mapStateToProps = ({ favorite }) => {
+  return { favorite };
+};
 
-export default ListFavorite;
+const mapDispatchToProps = dispatch => {
+return bindActionCreators({
+  favoriteAction, 
+}, dispatch)
+};
+
+const wrappedDashBoard = DashBoard;
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(wrappedDashBoard));
 

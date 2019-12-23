@@ -6,8 +6,6 @@ const initialState = {
     userEmail: null,
     user: {},
     name: '',
-    defaultCustomer: {},
-    defaultSeller: {},
     favorite: [],
     loggedIn: false,
     message: null,
@@ -33,11 +31,9 @@ export const login = (state = initialState, action) => {
             userEmail: action.payload.email,
             userName: action.payload.name,
             message: action.payload.message,
-            defaultCustomer: action.payload.defaultCustomer,
-            defaultSeller: action.payload.defaultSeller,
             user: action.payload.user,
             loggedIn: true,
-            name: ''
+            name: action.payload.username
         };
 
     case LOGIN_FAILURE:
