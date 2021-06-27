@@ -1,5 +1,4 @@
-# growth-hackers-test
-
+# Project React
 
 # Install Dependencies
 
